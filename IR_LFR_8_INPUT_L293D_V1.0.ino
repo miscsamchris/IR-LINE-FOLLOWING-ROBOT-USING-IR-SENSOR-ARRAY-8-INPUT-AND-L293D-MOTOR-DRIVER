@@ -4,7 +4,7 @@
 // DATE    : 24/03/17
 // BLOG    : https://electronicconnectors.blogspot.in/2017/03/ir-line-following-robot-ir-sensor.html 
 // PROTEUS : SIMULATION FILE http://linkshrink.net/72kDyC
-
+#define buzzerpin 13
 
 /* Define motor controll inputs */
 const int motorRPin1 = 2; // signal pin 1 for the right motor, connect to IN1               
@@ -38,6 +38,7 @@ void setup() {
   pinMode(motorRPin1,OUTPUT);        
   pinMode(motorRPin2,OUTPUT);
   pinMode(motorREnable,OUTPUT);
+   pinMode(buzzerpin,OUTPUT);
    
   /* Set-up IR sensor pins as input */
   for (int i = 0; i <= 7; i++) 
@@ -153,7 +154,7 @@ void check( )
      break;
       
      case B00111100:
-     go();
+     beep();
      break;  
      
      case B00011110:
@@ -185,7 +186,7 @@ void check( )
      break; 
      
      case B01111110:
-     go();
+     beep();
      break;
      
      case B00111111:
@@ -202,7 +203,7 @@ void check( )
      break;  
      
      case B11111111:
-      go();        
+      beep();        
      
      break;  
    
@@ -282,4 +283,11 @@ void scanD()
 {
   bitWrite(irSensors, count, !digitalRead( irPins[count] ));
 } 
+}
+void beep(){
+  stopme();
+  delay(1000);
+  digitalWrite(buzzerpin,HIGH);
+  delay(5000);
+  digitalWrite(buzzerpin,LOW);
 }
